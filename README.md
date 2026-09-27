@@ -1,6 +1,17 @@
 # Luanti Ranks
 
-A Luanti chat-ranks mod with colored rank names displayed before player names.
+A complete Luanti chat-rank system with colored rank names displayed before player names and on player nametags.
+
+## Features
+
+- Colored rank prefixes in chat
+- Colored nametags displayed above players
+- Default rank assignment on first join
+- Persistent rank storage across server restarts
+- Owner/Admin-only rank management commands
+- Support for `rank_admin` privilege
+- Configurable rank names and colors
+- Robust error handling and validation
 
 ## Ranks
 
@@ -16,14 +27,16 @@ A Luanti chat-ranks mod with colored rank names displayed before player names.
 
 ## Commands
 
-Only players with the **Owner** or **Admin** rank can use management commands:
+Only players with the **Owner** or **Admin** rank, or those with the `rank_admin` privilege, can use these commands:
 
-- `/rank_list` — List all available ranks.
-- `/rank_set <player> <rank>` — Set a player's rank. Use the rank name exactly as shown by `/rank_list`; spaces can be replaced with underscores.
+- `/rank_list` — List all available ranks and their colors.
+- `/rank_set <player> <rank>` — Set a player's rank. Rank name can include spaces or underscores; the mod normalizes the input.
 - `/clear_rank <player>` — Reset a player to Normal Player.
 - `/promote <player>` — Promote a player to Helper.
 
-The rank data is saved using Luanti mod storage and survives server restarts. Rank prefixes are colorized in chat to match each rank.
+## Configuration
+
+Edit `config.lua` to customize rank names, colors, or add new ranks. The mod will automatically read the new configuration on the next server start.
 
 ## Installation
 
@@ -32,3 +45,12 @@ The rank data is saved using Luanti mod storage and survives server restarts. Ra
 3. Restart the server.
 
 The mod uses only the standard Luanti Lua API.
+
+## Permissions
+
+Rank management checks work in this order:
+1. `rank_admin` privilege
+2. `server` privilege (superuser)
+3. Player's rank (Owner or Admin)
+
+Any of these grants access to rank commands.
